@@ -41,7 +41,9 @@ For more information and about the project, check out my profile:
 st.markdown("---")
 st.markdown(
     """
-    **About:** This application is designed to help you explore books, get recommendations, and find your next favorite read. Stay tuned for more updates!
+    **About:**
+    Welcome to the Book-Based Chatbot! This app allows you to ask questions about specific books and get instant answers using advanced language models. Whether you're curious about a book's plot, characters, or themes, simply ask your question, and the chatbot will provide a concise and accurate response. You can also explore predefined questions for a deeper understanding of your favorite books. Perfect for readers, students, and book clubs looking for quick insights!
+    This application is designed to help you explore books, get recommendations, and find your next favorite read. Stay tuned for more updates!
     """
 )
 
