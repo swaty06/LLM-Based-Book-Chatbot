@@ -70,7 +70,7 @@ def app():
             st.header("Answer")
             st.write(response["result"])
 
-set_custom_bg()
+
 custom_navbar()
 apply_background()
 add_page_title(layout="wide")
