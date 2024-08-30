@@ -22,7 +22,7 @@ st.set_page_config(
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.selectbox("Go to", ["Home", "Page 1", "Page 2"])
+#page = st.sidebar.selectbox("Go to", ["Home", "Page 1", "Page 2"])
 
 # Function to dynamically load and execute page modules
 def load_page(page_name):
