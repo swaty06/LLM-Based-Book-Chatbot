@@ -1,6 +1,6 @@
 import streamlit as st
 from langchain_helper import get_qa_chain, create_vector_db
-from utils import apply_background,utils
+from utils import apply_background,custom_navbar
 from st_pages import add_page_title
 from pathlib import Path
 
@@ -70,9 +70,9 @@ def app():
             st.header("Answer")
             st.write(response["result"])
 
-utils.set_custom_bg()
-utils.custom_navbar()
-utils.apply_background()
+set_custom_bg()
+custom_navbar()
+apply_background()
 add_page_title(layout="wide")
 app()
 
