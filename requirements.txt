@@ -14,7 +14,7 @@ python-magic==0.4.27
 openai==0.28.0
 protobuf~=3.20.0  # Updated to ensure compatibility with OpenAI
 tiktoken  # Specify version to avoid breaking changes
-st_pages
+st_pages==0.5.0
 faiss-cpu  # Specify version to ensure compatibility
 
 nltk==3.8.1  # Example version for stability
