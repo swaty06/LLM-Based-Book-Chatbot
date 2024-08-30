@@ -1,0 +1,16 @@
+langchain==0.0.284
+python-dotenv==1.0.0
+
+unstructured==0.9.2
+streamlit==1.36.0
+streamlit_folium==0.21.0
+streamlit_option_menu==0.3.13
+
+libmagic==1.0
+python-magic==0.4.27
+
+openai==0.28.0
+protobuf>3.19.0
+tiktoken
+st_pages
+
