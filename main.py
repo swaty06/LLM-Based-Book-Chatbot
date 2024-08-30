@@ -4,7 +4,7 @@ import os
 
 from PIL import Image
 from streamlit_option_menu import option_menu
-from utils import utils
+from utils import apply_background,custom_navbar
 from st_pages import Page, show_pages, add_page_title
 from pathlib import Path
 
