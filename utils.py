@@ -1,6 +1,11 @@
 # utils.py
 import base64
 import streamlit as st
+from pathlib import Path
+
+
+root_path = Path(__file__).parent.parent
+media_path = root_path.joinpath("media")
 
 def get_base64_image(image_path):
     with open(image_path, "rb") as img_file:
