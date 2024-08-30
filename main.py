@@ -65,7 +65,7 @@ st.markdown(
     **About:** This application is designed to help you explore books, get recommendations, and find your next favorite read. Stay tuned for more updates!
     """
 )
-utils.apply_background()
+apply_background()
 show_pages(
     [
         Page(str(root_path.joinpath("Main.py")), "Home", "🏠"),
