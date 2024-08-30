@@ -67,7 +67,7 @@ st.markdown(
 
 
 [[pages]]
-path = "example_one.py"
+path = "page1.py"
 name = "st-pages"
 icon = "📄"
 
