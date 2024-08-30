@@ -9,14 +9,6 @@ media_path = root_path.joinpath("media")
 
 def app():
 
-    # Set the page configuration
-    st.set_page_config(
-        page_title="Book Bot 🌱",
-        page_icon="📚",
-        layout="centered",
-        initial_sidebar_state="expanded",
-    )
-    
     # Add a custom CSS style for better visuals
     st.markdown(
         """
