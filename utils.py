@@ -11,7 +11,7 @@ def get_base64_image(image_path):
     with open(image_path, "rb") as img_file:
         return base64.b64encode(img_file.read()).decode()
 
-def apply_background(image_path="./book4.jpg"):
+def apply_background(image_path="media/book4.jpg"):
     """
     Apply a background image to the Streamlit app.
     
