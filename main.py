@@ -5,7 +5,7 @@ import os
 from PIL import Image
 from streamlit_option_menu import option_menu
 from utils import apply_background,custom_navbar
-from st_pages import Page, add_page_title
+from st_pages import Page, show_pages, add_page_title
 from pathlib import Path
 
 root_path = Path(__file__).parent
@@ -65,10 +65,13 @@ st.markdown(
     """
 )
 
-
-[[pages]]
-path = "page1.py"
-name = "st-pages"
-icon = "📄"
+show_pages(
+    [
+        Page(str(root_path.joinpath("main.py")), "Home", "🏠"),
+       # Page(str(pages_path.joinpath("page1.py")), "Url Summarisor", ":books:"),
+        Page(str(pages_path.joinpath("page1.py")), "BookBot", "🌿"),
+       
+    ]
+)
 
 add_page_title(layout="wide")
