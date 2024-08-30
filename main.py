@@ -75,3 +75,6 @@ show_pages(
 )
 
 add_page_title(layout="wide")
+
+custom_navbar()
+apply_background()
