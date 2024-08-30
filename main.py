@@ -1,15 +1,8 @@
 import streamlit as st
 import importlib
-import os
-
-from PIL import Image
-from streamlit_option_menu import option_menu
-from utils import apply_background,custom_navbar
-from st_pages import Page, show_pages, add_page_title
 from pathlib import Path
 
 root_path = Path(__file__).parent
-media_path = root_path.joinpath("media")
 pages_path = root_path.joinpath('Pages')
 
 # Set page configuration
@@ -22,7 +15,7 @@ st.set_page_config(
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
-#page = st.sidebar.selectbox("Go to", ["Home", "Page 1", "Page 2"])
+page = st.sidebar.selectbox("Go to", ["Home", "Page 1", "Page 2"])
 
 # Function to dynamically load and execute page modules
 def load_page(page_name):
@@ -31,7 +24,7 @@ def load_page(page_name):
         module = importlib.import_module(module_name)
         return module
     except ModuleNotFoundError:
-        st.error(f" {page_name} not found.")
+        st.error(f"{page_name} not found.")
         return None
 
 # Display the selected page with content
@@ -65,14 +58,3 @@ st.markdown(
     **About:** This application is designed to help you explore books, get recommendations, and find your next favorite read. Stay tuned for more updates!
     """
 )
-apply_background()
-show_pages(
-    [
-        Page(str(root_path.joinpath("Main.py")), "Home", "🏠"),
-        Page(str(pages_path.joinpath("page1.py")), "EDA", ":books:"),
-        Page(str(pages_path.joinpath("page2.py")), "Crop Selection", "🌿"),
-       
-    ]
-)
-
-add_page_title(layout="wide")
