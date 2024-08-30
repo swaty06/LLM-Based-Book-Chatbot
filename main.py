@@ -20,34 +20,14 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Sidebar for navigation
-st.sidebar.title("Navigation")
-page = st.sidebar.selectbox("Go to", ["Home", "Page 1", "Page 2"])
 
-# Function to dynamically load and execute page modules
-def load_page(page_name):
-    try:
-        module_name = f"Pages.{page_name.lower().replace(' ', '_')}"
-        module = importlib.import_module(module_name)
-        return module
-    except ModuleNotFoundError:
-        st.error(f" {page_name} not found.")
-        return None
 
-# Display the selected page with content
-if page == "Home":
-    st.title("Home")
-    st.write("Welcome to the Home Page!")
-else:
-    page_module = load_page(page)
-    if page_module:
-        page_module.app()  # Call the app function from the module
 
 # Main content (previously in the sidebar)
 st.subheader("Tools Available")
 st.write("""
-1. **URL Summarization:** Provide a URL related to any book or literary content, and our tool will summarize the key points for you.
-2. **Book Chatbot:** Ask any book-related questions, and get insightful responses from our AI-powered assistant.
+
+ **Book Chatbot:** Ask any book-related questions, and get insightful responses from our AI-powered assistant.
 """)
 # Add links to book resources or related pages
 st.markdown("""
@@ -68,8 +48,8 @@ st.markdown(
 show_pages(
     [
         Page(str(root_path.joinpath("main.py")), "Home", "🏠"),
-       # Page(str(pages_path.joinpath("page1.py")), "Url Summarisor", ":books:"),
-        Page(str(pages_path.joinpath("page1.py")), "BookBot", "🌿"),
+       
+        Page(str(pages_path.joinpath("page1.py")), "BookBot", "🌿")
        
     ]
 )
