@@ -1,4 +1,6 @@
-langchain==0.0.284
+langchain==0.2.15
+#langchain==0.2.15
+langchain_community
 python-dotenv==1.0.0
 
 unstructured==0.9.2
@@ -10,7 +12,16 @@ libmagic==1.0
 python-magic==0.4.27
 
 openai==0.28.0
-protobuf>3.19.0
-tiktoken
-st_pages
+protobuf~=3.20.0  # Updated to ensure compatibility with OpenAI
+tiktoken  # Specify version to avoid breaking changes
+st_pages==0.5.0
+faiss-cpu  # Specify version to ensure compatibility
 
+nltk==3.8.1  # Example version for stability
+google-generativeai
+
+sentence-transformers==2.2.2  # Example version that works well
+transformers==4.44.2  # Example version that works well
+tokenizers<0.20.0
+torch
+InstructorEmbedding==1.0.1
