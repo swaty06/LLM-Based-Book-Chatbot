@@ -39,7 +39,7 @@ def app():
     Click the button below to initialize the knowledge base, then ask any question you have about books!
     """)
     # Apply the background image
-    apply_background(image_path="./app/media/book4.jpg")
+    apply_background(image_path="media/book4.jpg")
     # Button to create a knowledge base
     btn = st.button("Create Knowledgebase 🛠️")
     
