@@ -6,6 +6,8 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 import os
 import google.generativeai as genai
+from langchain.llms.base import LLM, Runnable
+from typing import Any, Dict
 
 from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env (especially openai api key)
