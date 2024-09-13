@@ -50,7 +50,7 @@ def app():
             st.success("Knowledge base created successfully!")
     
     # Input box for user questions
-    question = st.text_input("Ask your question below:", placeholder="What is the best book for learning Python?")
+    question = st.text_input("Ask your question below:")
     
     # Process the user's question
     if question:
