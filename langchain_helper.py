@@ -18,6 +18,26 @@ load_dotenv()  # take environment variables from .env (especially openai api key
 #llm = GoogleGenerativeAI(google_api_key=os.environ["GOOGLE_API_KEY"], temperature=0.1)
 palm.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
+class GooglePaLM_LLM(LLM):
+    def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
+        """Make a call to Google PaLM API and return the output."""
+        response = palm.generate_text(
+            model="models/text-bison-001",  # Specify the model you're using
+            prompt=prompt,
+            temperature=0.7  # You can configure this as needed
+        )
+        return response.result
+
+    @property
+    def _identifying_params(self) -> Dict[str, Any]:
+        """Return the identifying parameters of the LLM."""
+        return {"model": "models/text-bison-001"}
+
+    @property
+    def llm_type(self) -> str:
+        """Return the type of the LLM."""
+        return "google_palm"
+
 # # Initialize instructor embeddings using the Hugging Face model
 instructor_embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-large")
 vectordb_file_path = "faiss_index"
@@ -54,8 +74,9 @@ def get_qa_chain():
         template=prompt_template,
         input_variables=["context", "question"]
     )
+     llm = GooglePaLM_LLM()
 
-    chain = RetrievalQA.from_chain_type(llm=palm,
+    chain = RetrievalQA.from_chain_type(llm=llm,
                                         chain_type="stuff",
                                         retriever=retriever,
                                         input_key="query",
