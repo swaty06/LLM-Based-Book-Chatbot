@@ -16,14 +16,11 @@ load_dotenv()  # take environment variables from .env (especially openai api key
 genai.configure(api_key=os.getenv('API_KEY'))
 model = genai.GenerativeModel(model_name='gemini-pro')
 
-class GeminiLLM(Runnable):
+class GeminiLLM(LLM):
     def __init__(self, model):
         self.model = model
     
-    def _llm_type(self) -> str:
-        return "gemini"
-
-    def generate(self, prompt: str, temperature: float = 0, max_output_tokens: int = 800) -> str:
+    def _call(self, prompt: str, temperature: float = 0, max_output_tokens: int = 800) -> str:
         response = self.model.generate_content(
             prompt=prompt,
             generation_config={
@@ -33,8 +30,8 @@ class GeminiLLM(Runnable):
         )
         return response.get('content', 'No content generated.')
 
-    def __call__(self, prompt: str, temperature: float = 0, max_output_tokens: int = 800) -> str:
-        return self.generate(prompt, temperature, max_output_tokens)
+    def generate(self, prompt: str, temperature: float = 0, max_output_tokens: int = 800) -> str:
+        return self._call(prompt, temperature, max_output_tokens)
 
 
 # # Initialize instructor embeddings using the Hugging Face model
