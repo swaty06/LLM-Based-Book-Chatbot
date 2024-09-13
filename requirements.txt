@@ -19,7 +19,7 @@ st_pages==0.5.0
 faiss-cpu  # Specify version to ensure compatibility
 
 nltk==3.8.1  # Example version for stability
-google-generativeai==0.2.0
+google-generativeai
 
 sentence-transformers==2.2.2  # Example version that works well
 transformers==4.44.2  # Example version that works well
