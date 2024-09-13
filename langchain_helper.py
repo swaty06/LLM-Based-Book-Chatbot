@@ -22,7 +22,8 @@ def create_vector_db():
 
     # Create a FAISS instance for vector database from 'data'
     vectordb = FAISS.from_documents(documents=data,
-                                    embedding=instructor_embeddings)
+                                    embedding=instructor_embeddings,
+                                   allow_dangerous_deserialization=True)
 
     # Save vector database locally
     vectordb.save_local(vectordb_file_path)
@@ -30,7 +31,7 @@ def create_vector_db():
 
 def get_qa_chain():
     # Load the vector database from the local folder
-    vectordb = FAISS.load_local(vectordb_file_path, instructor_embeddings)
+    vectordb = FAISS.load_local(vectordb_file_path, instructor_embeddings,allow_dangerous_deserialization=True)
 
     # Create a retriever for querying the vector database
     retriever = vectordb.as_retriever(score_threshold=0.7)
