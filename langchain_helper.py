@@ -20,8 +20,9 @@ class GoogleGeminiLLM(LLM):
     def __init__(self, api_key: str, model_name: str):
         import google.generativeai as genai
         genai.configure(api_key=api_key)
+        self.model_name = model_name
         self.model = genai.GenerativeModel(model_name=model_name)
-    
+
     def _call(self, prompt: str, **kwargs: Any) -> str:
         response = self.model.generate_content(
             prompt,
@@ -34,8 +35,8 @@ class GoogleGeminiLLM(LLM):
 
     def _llm_type(self) -> str:
         return 'GoogleGemini'
+# Initialize custom Google Gemini LLM
 llm = GoogleGeminiLLM(api_key=os.getenv('GOOGLE_API_KEY'), model_name='gemini-pro')
-
 
 # Initialize instructor embeddings using the Hugging Face model
 instructor_embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-large")
