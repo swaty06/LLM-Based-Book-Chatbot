@@ -6,6 +6,7 @@ from langchain_google_genai import GoogleGenerativeAI
 from langchain.document_loaders.csv_loader import CSVLoader
 from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.prompts import PromptTemplate
+import google.generativeai as palm
 from langchain.chains import RetrievalQA
 import os
 
@@ -13,8 +14,10 @@ from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env (especially openai api key)
 
 # Create Google Palm LLM model
-llm = GooglePalm(google_api_key=os.environ["GOOGLE_API_KEY"], temperature=0.1)
+#llm = GooglePalm(google_api_key=os.environ["GOOGLE_API_KEY"], temperature=0.1)
 #llm = GoogleGenerativeAI(google_api_key=os.environ["GOOGLE_API_KEY"], temperature=0.1)
+palm.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
 # # Initialize instructor embeddings using the Hugging Face model
 instructor_embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-large")
 vectordb_file_path = "faiss_index"
