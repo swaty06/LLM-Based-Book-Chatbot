@@ -18,7 +18,7 @@ model = genai.GenerativeModel(model_name='gemini-pro')
 
 class GoogleGeminiLLM(LLM):
     def __init__(self, model):
-        self._model = model  # Store the model instance
+        self.model = model  # Store the model instance
 
     def _call(self, prompt: str, **kwargs: Any) -> str:
         response = self._model.generate_content(
