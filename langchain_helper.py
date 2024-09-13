@@ -16,24 +16,24 @@ load_dotenv()  # take environment variables from .env (especially openai api key
 genai.configure(api_key=os.getenv('API_KEY'))
 model = genai.GenerativeModel(model_name='gemini-pro')
 
-class GeminiLLM(LLM):
+class GoogleGeminiLLM(LLM):
     def __init__(self, model):
         self.model = model
-    
-    def _call(self, prompt: str, temperature: float = 0, max_output_tokens: int = 800) -> str:
+
+    def _call(self, prompt: str, **kwargs: Any) -> str:
         response = self.model.generate_content(
-            prompt=prompt,
+            prompt,
             generation_config={
-                'temperature': temperature,
-                'max_output_tokens': max_output_tokens
+                'temperature': kwargs.get('temperature', 0.1),
+                'max_output_tokens': kwargs.get('max_tokens', 800)
             }
         )
-        return response.get('content', 'No content generated.')
+        return response['content']
 
-    def generate(self, prompt: str, temperature: float = 0, max_output_tokens: int = 800) -> str:
-        return self._call(prompt, temperature, max_output_tokens)
     def _llm_type(self) -> str:
         return 'GoogleGemini'
+
+llm = GoogleGeminiLLM(model=model)
 
 
 # # Initialize instructor embeddings using the Hugging Face model
@@ -72,10 +72,10 @@ def get_qa_chain():
     PROMPT = PromptTemplate(
         template=prompt_template, input_variables=["context", "question"]
     )
-    gemini_llm = GeminiLLM(model=model)
+   # gemini_llm = GeminiLLM(model=model)
    
 
-    chain = RetrievalQA.from_chain_type(llm=gemini_llm ,
+    chain = RetrievalQA.from_chain_type(llm=llm ,
                                         chain_type="stuff",
                                         retriever=retriever,
                                         input_key="query",
