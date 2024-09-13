@@ -25,22 +25,22 @@ class GooglePaLM_LLM(LLM):
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
         """Make a call to Google PaLM API and return the output."""
         response = palm.generate_text(
-            model="hkunlp/instructor-large",  # Specify the model you're using
+            model="models/text-bison-001",  # Google PaLM model
             prompt=prompt,
-            temperature=0.1  # You can configure this as needed
+            temperature=0.7  # Configure this as needed
         )
         return response.result
 
     @property
-    def _identifying_params(self) -> Dict[str, Any]:
-        """Return the identifying parameters of the LLM."""
-        return {"model": "hkunlp/instructor-large"}
-
-    @property
-    def llm_type(self) -> str:
+    def _llm_type(self) -> str:
         """Return the type of the LLM."""
         return "google_palm"
 
+    @property
+    def _identifying_params(self) -> Dict[str, Any]:
+        """Return the identifying parameters of the LLM."""
+        return {"model": "models/text-bison-001"}  # Google PaLM model
+        
 # # Initialize instructor embeddings using the Hugging Face model
 instructor_embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-large")
 vectordb_file_path = "faiss_index"
