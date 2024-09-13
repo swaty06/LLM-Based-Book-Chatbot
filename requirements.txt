@@ -3,6 +3,7 @@ langchain==0.2.15
 #langchain==0.2.15
 langchain_community
 python-dotenv==1.0.0
+langchain-google-genai
 
 unstructured==0.9.2
 streamlit==1.36.0
