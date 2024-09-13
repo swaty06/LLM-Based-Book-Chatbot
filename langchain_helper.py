@@ -1,7 +1,7 @@
 
 
 from langchain.vectorstores import FAISS
-from langchain.llms import GooglePalm
+from langchain_community.llms.google_palm import GooglePalm
 from langchain_google_genai import GoogleGenerativeAI
 from langchain.document_loaders.csv_loader import CSVLoader
 from langchain.embeddings import HuggingFaceInstructEmbeddings
