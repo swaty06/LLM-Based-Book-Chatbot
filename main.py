@@ -20,9 +20,6 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-
-
-
 # Main content (previously in the sidebar)
 st.subheader("Tools Available")
 st.write("""
