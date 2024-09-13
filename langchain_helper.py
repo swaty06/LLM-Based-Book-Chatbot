@@ -17,23 +17,24 @@ genai.configure(api_key=os.getenv('API_KEY'))
 model = genai.GenerativeModel(model_name='gemini-pro')
 
 class GoogleGeminiLLM(LLM):
-    def __init__(self, model):
-        self.model = model  # Store the model instance
-
+    def __init__(self, api_key: str, model_name: str):
+        import google.generativeai as genai
+        genai.configure(api_key=api_key)
+        self.model = genai.GenerativeModel(model_name=model_name)
+    
     def _call(self, prompt: str, **kwargs: Any) -> str:
-        response = self._model.generate_content(
+        response = self.model.generate_content(
             prompt,
             generation_config={
                 'temperature': kwargs.get('temperature', 0.1),
                 'max_output_tokens': kwargs.get('max_tokens', 800)
             }
         )
-        return response['content']  # Return the generated content
+        return response['content']  # Ensure this matches the actual API response structure
 
     def _llm_type(self) -> str:
         return 'GoogleGemini'
-
-llm = GoogleGeminiLLM(model=model)
+llm = GoogleGeminiLLM(api_key=os.getenv('GOOGLE_API_KEY'), model_name='gemini-pro')
 
 
 # Initialize instructor embeddings using the Hugging Face model
