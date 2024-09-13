@@ -13,8 +13,8 @@ from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env (especially openai api key)
 
 # Configure Google Gemini API
-genai.configure(api_key=os.getenv('API_KEY'))
-model = genai.GenerativeModel(model_name='gemini-pro')
+#genai.configure(api_key=os.getenv('API_KEY'))
+#model = genai.GenerativeModel(model_name='gemini-pro')
 
 class GoogleGeminiLLM(LLM):
     def __init__(self, api_key: str, model_name: str):
