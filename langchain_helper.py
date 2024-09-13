@@ -22,7 +22,7 @@ load_dotenv()  # take environment variables from .env (especially openai api key
 #llm = GooglePalm(google_api_key=os.environ["GOOGLE_API_KEY"], temperature=0.1)
 #llm =GoogleGemini(api_key=os.environ["GOOGLE_API_KEY"], temperature=0.1)
 #llm = GoogleGenerativeAI(google_api_key=os.environ["GOOGLE_API_KEY"], temperature=0.1)
-llm =palm.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+llm =palm.configure(api_key=os.getenv("GOOGLE_API_KEY"),temperature=0.1)
 
 
 # # Initialize instructor embeddings using the Hugging Face model
