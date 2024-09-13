@@ -61,7 +61,7 @@ def get_qa_chain():
         )
         return response.get('content', 'No content generated.')
 
-    chain = RetrievalQA.from_chain_type(llm=llm,
+    chain = RetrievalQA.from_chain_type(llm=custom_generate_content,
                                         chain_type="stuff",
                                         retriever=retriever,
                                         input_key="query",
