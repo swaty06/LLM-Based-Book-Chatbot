@@ -70,7 +70,7 @@ def get_qa_chain():
     PROMPT = PromptTemplate(
         template=prompt_template, input_variables=["context", "question"]
     )
-    gemini_llm = GeminiLLM(model)
+    gemini_llm = GeminiLLM(model=model)
    
 
     chain = RetrievalQA.from_chain_type(llm=gemini_llm ,
