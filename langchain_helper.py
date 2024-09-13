@@ -2,7 +2,7 @@
 
 from langchain.vectorstores import FAISS
 from langchain_community.llms.google_palm import GooglePalm
-from google.generativeai import GooglePaLMClient
+#from google.generativeai import GooglePaLMClient
 from langchain_community.llms.google_gemini import GoogleGemini
 from langchain_google_genai import GoogleGenerativeAI
 from langchain.document_loaders.csv_loader import CSVLoader
