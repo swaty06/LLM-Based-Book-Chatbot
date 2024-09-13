@@ -15,8 +15,6 @@ load_dotenv()  # take environment variables from .env (especially openai api key
 # Configure Google Gemini API
 genai.configure(api_key=os.getenv('API_KEY'))
 model = genai.GenerativeModel(model_name='gemini-pro')
-from langchain.llms.base import LLM, Runnable
-from typing import Any, Dict
 
 class GeminiLLM(Runnable):
     def __init__(self, model):
