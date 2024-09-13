@@ -18,17 +18,17 @@ model = genai.GenerativeModel(model_name='gemini-pro')
 
 class GoogleGeminiLLM(LLM):
     def __init__(self, model):
-        self.model = model
+        self._model = model  # Store the model instance
 
     def _call(self, prompt: str, **kwargs: Any) -> str:
-        response = self.model.generate_content(
+        response = self._model.generate_content(
             prompt,
             generation_config={
                 'temperature': kwargs.get('temperature', 0.1),
                 'max_output_tokens': kwargs.get('max_tokens', 800)
             }
         )
-        return response['content']
+        return response['content']  # Return the generated content
 
     def _llm_type(self) -> str:
         return 'GoogleGemini'
@@ -36,27 +36,24 @@ class GoogleGeminiLLM(LLM):
 llm = GoogleGeminiLLM(model=model)
 
 
-# # Initialize instructor embeddings using the Hugging Face model
+# Initialize instructor embeddings using the Hugging Face model
 instructor_embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-large")
 vectordb_file_path = "faiss_index"
 
 def create_vector_db():
     # Load data from FAQ sheet
-    loader = CSVLoader(file_path='faq.csv', source_column="prompt")
+    loader = CSVLoader(file_path='codebasics_faqs.csv', source_column="prompt")
     data = loader.load()
 
     # Create a FAISS instance for vector database from 'data'
-    vectordb = FAISS.from_documents(documents=data,
-                                    embedding=instructor_embeddings,
-                                   allow_dangerous_deserialization=True)
+    vectordb = FAISS.from_documents(documents=data, embedding=instructor_embeddings, allow_dangerous_deserialization=True)
 
     # Save vector database locally
     vectordb.save_local(vectordb_file_path)
 
-
 def get_qa_chain():
     # Load the vector database from the local folder
-    vectordb = FAISS.load_local(vectordb_file_path, instructor_embeddings,allow_dangerous_deserialization=True)
+    vectordb = FAISS.load_local(vectordb_file_path, instructor_embeddings, allow_dangerous_deserialization=True)
 
     # Create a retriever for querying the vector database
     retriever = vectordb.as_retriever(score_threshold=0.7)
@@ -69,13 +66,9 @@ def get_qa_chain():
 
     QUESTION: {question}"""
 
-    PROMPT = PromptTemplate(
-        template=prompt_template, input_variables=["context", "question"]
-    )
-   # gemini_llm = GeminiLLM(model=model)
-   
+    PROMPT = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
 
-    chain = RetrievalQA.from_chain_type(llm=llm ,
+    chain = RetrievalQA.from_chain_type(llm=llm,
                                         chain_type="stuff",
                                         retriever=retriever,
                                         input_key="query",
