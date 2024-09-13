@@ -19,10 +19,31 @@ from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env (especially openai api key)
 
 # Create Google Palm LLM model
-llm = GooglePalm(google_api_key=os.environ["GOOGLE_API_KEY"], temperature=0.1)
+#llm = GooglePalm(google_api_key=os.environ["GOOGLE_API_KEY"], temperature=0.1)
 #llm =GoogleGemini(api_key=os.environ["GOOGLE_API_KEY"], temperature=0.1)
 #llm = GoogleGenerativeAI(google_api_key=os.environ["GOOGLE_API_KEY"], temperature=0.1)
-#llm =palm.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+llm =palm.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
+class GooglePaLM_LLM(LLM):
+    def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
+        """Make a call to Google PaLM API and return the output."""
+        response = palm.generate_text(
+            model="models/text-bison-001",  # Specify the model you're using
+            prompt=prompt,
+            temperature=0.7  # Configure this as needed
+        )
+        return response.result
+
+    @property
+    def _llm_type(self) -> str:
+        """Return the type of the LLM."""
+        return "google_palm"
+
+    @property
+    def _identifying_params(self) -> Dict[str, Any]:
+        """Return the identifying parameters of the LLM."""
+        return {"model": "models/text-bison-001"}
+
 
 
 # # Initialize instructor embeddings using the Hugging Face model
@@ -61,7 +82,7 @@ def get_qa_chain():
         template=prompt_template,
         input_variables=["context", "question"]
     )
-   # llm = GooglePaLM_LLM()
+    llm = GooglePaLM_LLM()
 
     chain = RetrievalQA.from_chain_type(llm=llm,
                                         chain_type="stuff",
