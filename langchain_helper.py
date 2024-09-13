@@ -5,12 +5,16 @@ from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 import os
+import google.generativeai as genai
 
 from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env (especially openai api key)
 
-# Create Google Palm LLM model
-llm = GooglePalm(google_api_key=os.environ["GOOGLE_API_KEY"], temperature=0.1)
+# Configure Google Gemini API
+genai.configure(api_key=os.getenv('API_KEY'))
+model = genai.GenerativeModel(model_name='gemini-pro')
+
+
 # # Initialize instructor embeddings using the Hugging Face model
 instructor_embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-large")
 vectordb_file_path = "faiss_index"
@@ -47,6 +51,15 @@ def get_qa_chain():
     PROMPT = PromptTemplate(
         template=prompt_template, input_variables=["context", "question"]
     )
+    def custom_generate_content(prompt_text: str) -> str:
+        response = model.generate_content(
+            prompt=prompt_text,
+            generation_config={
+                'temperature': 0,
+                'max_output_tokens': 800
+            }
+        )
+        return response.get('content', 'No content generated.')
 
     chain = RetrievalQA.from_chain_type(llm=llm,
                                         chain_type="stuff",
