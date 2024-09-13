@@ -74,7 +74,7 @@ def get_qa_chain():
         template=prompt_template,
         input_variables=["context", "question"]
     )
-     llm = GooglePaLM_LLM()
+    llm = GooglePaLM_LLM()
 
     chain = RetrievalQA.from_chain_type(llm=llm,
                                         chain_type="stuff",
