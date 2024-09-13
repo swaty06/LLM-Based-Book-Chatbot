@@ -51,10 +51,11 @@ def get_qa_chain():
     QUESTION: {question}"""
 
     PROMPT = PromptTemplate(
-        template=prompt_template, input_variables=["context", "question"]
+        template=prompt_template,
+        input_variables=["context", "question"]
     )
 
-    chain = RetrievalQA.from_chain_type(llm=llm,
+    chain = RetrievalQA.from_chain_type(llm=palm,
                                         chain_type="stuff",
                                         retriever=retriever,
                                         input_key="query",
