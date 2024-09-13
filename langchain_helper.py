@@ -7,6 +7,9 @@ from langchain.document_loaders.csv_loader import CSVLoader
 from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.prompts import PromptTemplate
 import google.generativeai as palm
+from langchain.llms.base import LLM
+from typing import List, Optional, Dict, Any
+
 from langchain.chains import RetrievalQA
 import os
 
