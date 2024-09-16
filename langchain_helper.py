@@ -39,7 +39,7 @@ vectordb_file_path = "faiss_index"
 
 def create_vector_db():
     # Load data from FAQ sheet
-    loader = CSVLoader(file_path='codebasics_faqs.csv', source_column="prompt")
+    loader = CSVLoader(file_path='faq.csv', source_column="prompt")
     data = loader.load()
 
     # Create a FAISS instance for vector database from 'data'
