@@ -5,25 +5,19 @@ from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 import os
+from dotenv import load_dotenv
 import google.generativeai as genai
 from langchain.llms.base import LLM
 from typing import Any, Dict
 
-from dotenv import load_dotenv
-load_dotenv()  # take environment variables from .env (especially openai api key)
-
-# Configure Google Gemini API
-#genai.configure(api_key=os.getenv('API_KEY'))
-#model = genai.GenerativeModel(model_name='gemini-pro')
-
 class GoogleGeminiLLM(LLM):
     def __init__(self, api_key: str, model_name: str):
-        import google.generativeai as genai
+        # Configure the Gemini API
         genai.configure(api_key=api_key)
-        self.model_name = model_name
         self.model = genai.GenerativeModel(model_name=model_name)
 
     def _call(self, prompt: str, **kwargs: Any) -> str:
+        # Generate the content using the model
         response = self.model.generate_content(
             prompt,
             generation_config={
@@ -31,10 +25,18 @@ class GoogleGeminiLLM(LLM):
                 'max_output_tokens': kwargs.get('max_tokens', 800)
             }
         )
-        return response['content']  # Ensure this matches the actual API response structure
+        return response['content']  # Return the generated content
 
     def _llm_type(self) -> str:
-        return 'GoogleGemini'
+        return 'GoogleGeminiLLM'
+
+
+load_dotenv()  # take environment variables from .env (especially openai api key)
+
+# Configure Google Gemini API
+#genai.configure(api_key=os.getenv('API_KEY'))
+#model = genai.GenerativeModel(model_name='gemini-pro')
+
 # Initialize custom Google Gemini LLM
 llm = GoogleGeminiLLM(api_key=os.getenv('GOOGLE_API_KEY'), model_name='gemini-pro')
 
