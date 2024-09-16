@@ -10,35 +10,17 @@ import google.generativeai as genai
 from langchain.llms.base import LLM
 from typing import Any, Dict
 
-class GoogleGeminiLLM(LLM):
-    def __init__(self, api_key: str, model_name: str):
-        # Configure the Gemini API
-        genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel(model_name=model_name)
-
-    def _call(self, prompt: str, **kwargs: Any) -> str:
-        # Generate the content using the model
-        response = self.model.generate_content(
-            prompt,
-            generation_config={
-                'temperature': kwargs.get('temperature', 0.1),
-                'max_output_tokens': kwargs.get('max_tokens', 800)
-            }
-        )
-        return response['content']  # Return the generated content
-
-    def _llm_type(self) -> str:
-        return 'GoogleGeminiLLM'
 
 
 load_dotenv()  # take environment variables from .env (especially openai api key)
 
 # Configure Google Gemini API
-#genai.configure(api_key=os.getenv('API_KEY'))
-#model = genai.GenerativeModel(model_name='gemini-pro')
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-# Initialize custom Google Gemini LLM
-llm = GoogleGeminiLLM(api_key=os.getenv('GOOGLE_API_KEY'), model_name='gemini-pro')
+# Initialize the Gemini model
+gemini_model = genai.GenerativeModel(model="gemini-1.5-flash")
+
+
 
 # Initialize instructor embeddings using the Hugging Face model
 instructor_embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-large")
@@ -46,7 +28,7 @@ vectordb_file_path = "faiss_index"
 
 def create_vector_db():
     # Load data from FAQ sheet
-    loader = CSVLoader(file_path='codebasics_faqs.csv', source_column="prompt")
+    loader = CSVLoader(file_path='faqs.csv', source_column="prompt")
     data = loader.load()
 
     # Create a FAISS instance for vector database from 'data'
@@ -72,15 +54,22 @@ def get_qa_chain():
 
     PROMPT = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
 
-    chain = RetrievalQA.from_chain_type(llm=llm,
-                                        chain_type="stuff",
-                                        retriever=retriever,
-                                        input_key="query",
-                                        return_source_documents=True,
-                                        chain_type_kwargs={"prompt": PROMPT})
+    # Use the Gemini model to generate content based on the prompt
+    def run_chain(query):
+        # Retrieve the relevant context using the retriever
+        context_docs = retriever.get_relevant_documents(query)
 
-    return chain
+        # Use the Gemini model to generate the response
+        context = "\n".join([doc.page_content for doc in context_docs])
+        prompt = PROMPT.format(context=context, question=query)
+
+        # Call the Gemini model to generate the response
+        response = gemini_model.generate_content(prompt)
+        
+        return response.text, context_docs
+
+    return run_chain
 
 if __name__ == "__main__":
     create_vector_db()
-    chain = get_qa_chain()
+     qa_chain = get_qa_chain()
