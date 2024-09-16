@@ -24,7 +24,7 @@ class GeminiLLM(LLM):
         # Call the Gemini model with the prompt
         response = genai.generate_text(
         model="models/text-bison-001",
-        prompt="Write a story about a magic backpack."
+        prompt=prompt
 )
         return response.text
 
