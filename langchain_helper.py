@@ -32,7 +32,7 @@ class GeminiLLM(LLM):
 # Initialize the Gemini model
 #gemini_model = genai.GenerativeModel(model="gemini-1.5-flash")
 
-llm = GeminiLLM( model_name='gemini-1.5-flash')
+llm = GeminiLLM()
 # Initialize instructor embeddings using the Hugging Face model
 instructor_embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-large")
 vectordb_file_path = "faiss_index"
