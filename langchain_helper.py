@@ -8,7 +8,7 @@ import os
 from dotenv import load_dotenv
 import google.generativeai as genai
 from langchain.llms.base import LLM
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 load_dotenv()  # take environment variables from .env (especially openai api key)
 
