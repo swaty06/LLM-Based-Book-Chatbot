@@ -22,7 +22,10 @@ class GeminiLLM(LLM):
 
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
         # Call the Gemini model with the prompt
-        response = genai.generate_content(prompt=prompt, model=self.model_name)
+        response = genai.generate(
+        model="gemini-1.5-flash",
+        prompt="Write a story about a magic backpack."
+)
         return response.text
 
     @property
