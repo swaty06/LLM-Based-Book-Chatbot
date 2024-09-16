@@ -22,7 +22,7 @@ class GeminiLLM(LLM):
 
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
         # Call the Gemini model with the prompt
-        response = genai.generate_content(prompt=prompt, model=self.model_name)
+        response = genai.generate(prompt=prompt, model=self.model_name)
         return response.text
 
     @property
