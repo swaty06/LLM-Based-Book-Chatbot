@@ -20,10 +20,10 @@ class GeminiLLM(LLM):
     #def __init__(self, model_name="gemini-1.5-flash"):
         #self.model_name = model_name
 
-    def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
+   # def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
         # Call the Gemini model with the prompt
-        response = genai.generate(prompt=prompt, model=self.model_name)
-        return response.text
+       # response = genai.generate(prompt=prompt, model=self.model_name)
+       # return response.text
 
     @property
     def _llm_type(self) -> str:
