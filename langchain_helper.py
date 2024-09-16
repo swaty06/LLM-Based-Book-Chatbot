@@ -72,4 +72,4 @@ def get_qa_chain():
 
 if __name__ == "__main__":
     create_vector_db()
-     qa_chain = get_qa_chain()
+    qa_chain = get_qa_chain()
