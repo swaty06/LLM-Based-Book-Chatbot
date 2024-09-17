@@ -6,7 +6,6 @@ from pathlib import Path
 
 root_path = Path(__file__).parent.parent
 media_path = root_path.joinpath("media")
-
 def app():
 
     # Add a custom CSS style for better visuals
@@ -63,8 +62,6 @@ def app():
                 st.write(response["result"])
             except Exception as e:
                 st.error(f"An error occurred: {e}")
-
-
 custom_navbar()
 apply_background()
 add_page_title(layout="wide")
