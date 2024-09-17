@@ -23,17 +23,17 @@ class GeminiLLM(LLM):
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
         # Call the Gemini model with the prompt
         model= genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(prompt
+        response = model.generate_content(prompt)
+        return respone.text
         #response = genai.generate(
         #model="models/text-bison-001",
         #prompt=prompt,
         #temperature=0.7,
         #max_output_tokens=256
-            )
+            
             #return response.generations[0].text  # Ensure correct attribute
-             return respone.text
-        except Exception as e:
-            return f"Error"
+             
+       
 
 
     @property
