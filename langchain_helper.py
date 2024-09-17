@@ -33,7 +33,7 @@ class GeminiLLM(LLM):
             #return response.generations[0].text  # Ensure correct attribute
              return respone.text
         except Exception as e:
-            return f"Error
+            return f"Error"
 
 
     @property
