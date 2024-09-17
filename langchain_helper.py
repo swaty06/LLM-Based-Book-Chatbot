@@ -24,9 +24,14 @@ class GeminiLLM(LLM):
         # Call the Gemini model with the prompt
         response = genai.generate(
         model="models/text-bison-001",
-        prompt=prompt
-)
-        return response.text
+        prompt=prompt,
+        temperature=0.7,
+        max_output_tokens=256
+            )
+            return response.generations[0].text  # Ensure correct attribute
+        except Exception as e:
+            return f"Error
+
 
     @property
     def _llm_type(self) -> str:
