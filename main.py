@@ -48,7 +48,7 @@ show_pages(
     [
         Page(str(root_path.joinpath("main.py")), "Home", "🏠"),
        
-        Page(str(pages_path.joinpath("page1.py")), "BookBot", "🌿")
+       # Page(str(pages_path.joinpath("page1.py")), "BookBot", "🌿")
        
     ]
 )
