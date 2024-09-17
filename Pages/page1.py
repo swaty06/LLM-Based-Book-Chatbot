@@ -55,12 +55,14 @@ def app():
     # Process the user's question
     if question:
         with st.spinner("Fetching the answer..."):
-            chain = get_qa_chain()
-            response = chain(question)
-    
-            # Display the answer
-            st.header("Answer")
-            st.write(response["result"])
+            try:
+                chain = get_qa_chain()
+                response = chain({"query": question})
+                # Display the answer
+                st.header("Answer")
+                st.write(response["result"])
+            except Exception as e:
+                st.error(f"An error occurred: {e}")
 
 
 custom_navbar()
