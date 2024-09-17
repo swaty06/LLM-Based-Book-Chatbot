@@ -1,5 +1,5 @@
 from langchain.vectorstores import FAISS
-from langchain.llms import GooglePalm
+#from langchain.llms import GooglePalm
 from langchain.document_loaders.csv_loader import CSVLoader
 from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.prompts import PromptTemplate
