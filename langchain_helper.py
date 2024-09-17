@@ -22,7 +22,7 @@ class GeminiLLM(LLM):
 
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
         # Call the Gemini model with the prompt
-        response = genai.generate_text(
+        response = genai.generate(
         model="models/text-bison-001",
         prompt=prompt
 )
