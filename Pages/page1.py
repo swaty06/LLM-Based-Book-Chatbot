@@ -62,7 +62,7 @@ def app():
                 st.header("Answer")
                 st.write(response["result"])
             except Exception as e:
-                st.error(f"An error occurred: {e}")
+                 st.error(f"An error occurred: {e}")
 
 
 custom_navbar()
