@@ -24,7 +24,7 @@ class GeminiLLM(LLM):
         # Call the Gemini model with the prompt
         model= genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content(prompt)
-        return respone.text
+        return respone.generations[0].text
         #response = genai.generate(
         #model="models/text-bison-001",
         #prompt=prompt,
