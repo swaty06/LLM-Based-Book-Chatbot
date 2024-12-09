@@ -75,6 +75,6 @@ This README file will give potential users and contributors a clear and detailed
 
 ## Try It Out
 
-Check out the live version of the BookBot project here: [LLM-Based Book Chatbot](https://llm-based-book-chatbot-3sgawb2wwyf77qipzyykxv.streamlit.app/BookBot)
+Check out the live version of the BookBot project here: [LLM-Based Book Chatbot](https://llm-based-book-chatbot-sr5t7n8i4ajdx7vtyzgyw2.streamlit.app/BookBot)
 
 
