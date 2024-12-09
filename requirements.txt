@@ -27,4 +27,4 @@ transformers==4.44.2  # Example version that works well
 tokenizers<0.20.0
 torch
 InstructorEmbedding
-huggingface_hub
+huggingface_hub==0.13.4
