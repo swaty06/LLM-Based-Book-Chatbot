@@ -23,7 +23,7 @@ class GeminiLLM(LLM):
 
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
         # Call the Gemini model with the prompt
-        model= genai.GenerativeModel("gemini-1.5-flash")
+        model= genai.GenerativeModel("gemini-2.5-flash")
         response = model.generate_content(prompt)
         return response.text
         #response = genai.generate(
@@ -89,4 +89,5 @@ def get_qa_chain():
 if __name__ == "__main__":
     create_vector_db()
     chain = get_qa_chain()
+
 
