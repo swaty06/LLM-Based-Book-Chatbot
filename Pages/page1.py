@@ -1,73 +1,222 @@
 import streamlit as st
 from langchain_helper import get_qa_chain, create_vector_db
-from utils import apply_background,custom_navbar
+from utils import apply_background, custom_navbar
 from st_pages import add_page_title
 from pathlib import Path
 
 root_path = Path(__file__).parent.parent
 media_path = root_path.joinpath("media")
-def app():
 
-    # Add a custom CSS style for better visuals
-    st.markdown(
-        """
+def app():
+    # Enhanced custom CSS
+    st.markdown("""
         <style>
-        .stButton button {
-            background-color: #4CAF50;
-            color: white;
-            font-size: 18px;
-            border-radius: 10px;
-            height: 50px;
-            width: 100%;
+        /* Main styling */
+        .main {
+            padding: 2rem;
         }
-        .stTextInput input {
-            font-size: 18px;
-        }
-        .stHeader, .stWrite {
+        
+        /* Hero header */
+        .book-header {
+            background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+            padding: 2.5rem;
+            border-radius: 15px;
             text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+        }
+        
+        .book-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .book-header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+        
+        /* Action card */
+        .action-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        /* Button styling */
+        .stButton > button {
+            background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            padding: 0.8rem 2rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(46, 204, 113, 0.3);
+        }
+        
+        .stButton > button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(46, 204, 113, 0.4);
+            background: linear-gradient(135deg, #27AE60 0%, #229954 100%);
+        }
+        
+        /* Text input styling */
+        .stTextInput > div > div > input {
+            font-size: 1.1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            transition: border-color 0.3s ease;
+        }
+        
+        .stTextInput > div > div > input:focus {
+            border-color: #2ECC71;
+            box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.2);
+        }
+        
+        /* Answer box styling */
+        .answer-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 5px solid #2ECC71;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .answer-box h2 {
+            color: #2ECC71;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .answer-box p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        /* Info box */
+        .info-box {
+            background: #e8f5e9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #2ECC71;
+            margin-bottom: 2rem;
+        }
+        
+        .info-box p {
+            margin: 0;
+            color: #1b5e20;
+            font-size: 1rem;
+        }
+        
+        /* Spinner customization */
+        .stSpinner > div {
+            border-top-color: #2ECC71 !important;
+        }
+        
+        /* Success message */
+        .element-container:has(.stSuccess) {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Question input label */
+        .stTextInput > label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
         }
         </style>
-        """,
-        unsafe_allow_html=True
-    )
+    """, unsafe_allow_html=True)
     
-    # Title and introductory message
-    st.title("Book Bot 📚🌱")
+    # Header section
     st.markdown("""
-    Welcome to **Book Bot**, your personal assistant for book-related queries. 
-    Click the button below to initialize the knowledge base, then ask any question you have about books!
-    """)
+        <div class="book-header">
+            <h1>📚 Book Bot 🌱</h1>
+            <p>Your Personal AI Assistant for All Book-Related Queries</p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # Info box
+    st.markdown("""
+        <div class="info-box">
+            <p>
+                💡 <strong>Getting Started:</strong> First, initialize the knowledge base by clicking the button below. 
+                Then, feel free to ask any questions about books!
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+    
     # Apply the background image
     apply_background(image_path="media/book4.jpg")
-    # Button to create a knowledge base
-    btn = st.button("Create Knowledgebase 🛠️")
+    
+    # Action card for knowledge base creation
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.markdown('<div class="action-card">', unsafe_allow_html=True)
+        st.markdown("### 🛠️ Initialize Knowledge Base")
+        st.markdown("Click the button below to build the AI's knowledge database")
+        btn = st.button("🚀 Create Knowledgebase", key="create_kb")
+        st.markdown('</div>', unsafe_allow_html=True)
     
     if btn:
-        with st.spinner("Building the knowledge base... Please wait."):
-            # Simulate some processing time
-            create_vector_db()
-            st.success("Knowledge base created successfully!")
+        with st.spinner("🔄 Building the knowledge base... Please wait."):
+            try:
+                create_vector_db()
+                st.success("✅ Knowledge base created successfully! You can now ask questions.")
+            except Exception as e:
+                st.error(f"❌ An error occurred while creating the knowledge base: {e}")
     
-    # Input box for user questions
-    question = st.text_input("Ask your question below:")
+    # Question input section
+    st.markdown("---")
+    st.markdown("### 💬 Ask Your Question")
+    
+    question = st.text_input(
+        "Type your book-related question here:",
+        placeholder="e.g., What are the main themes in '1984'?",
+        label_visibility="collapsed"
+    )
     
     # Process the user's question
     if question:
-        with st.spinner("Fetching the answer..."):
+        with st.spinner("🔍 Searching for the answer..."):
             try:
                 chain = get_qa_chain()
                 response = chain({"query": question})
-                # Display the answer
-                st.header("Answer")
-                st.write(response["result"])
+                
+                # Display the answer in a beautiful box
+                st.markdown(f"""
+                    <div class="answer-box">
+                        <h2>💡 Answer</h2>
+                        <p>{response["result"]}</p>
+                    </div>
+                """, unsafe_allow_html=True)
+                
             except Exception as e:
-                st.error(f"An error occurred: {e}")
+                st.error(f"❌ An error occurred: {e}")
+                st.info("💡 Tip: Make sure you've created the knowledge base first!")
+
 custom_navbar()
 apply_background()
 add_page_title(layout="wide")
 app()
-
-
-            
-        
-        
