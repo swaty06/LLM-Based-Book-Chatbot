@@ -38,15 +38,6 @@ def app():
             opacity: 0.95;
         }
         
-        /* Action card */
-        .action-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-        }
-        
         /* Button styling */
         .stButton > button {
             background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
@@ -118,6 +109,39 @@ def app():
             font-size: 1rem;
         }
         
+        /* KB Section styling */
+        .kb-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .kb-section h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .kb-section p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Question section */
+        .question-section {
+            margin-top: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
         /* Spinner customization */
         .stSpinner > div {
             border-top-color: #2ECC71 !important;
@@ -170,14 +194,17 @@ def app():
     # Apply the background image
     apply_background(image_path="media/book4.jpg")
     
-    # Action card for knowledge base creation
+    # Knowledge Base Section - FIXED
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.markdown('<div class="action-card">', unsafe_allow_html=True)
-        st.markdown("### 🛠️ Initialize Knowledge Base")
-        st.markdown("Click the button below to build the AI's knowledge database")
+        st.markdown("""
+            <div class="kb-section">
+                <h3>🛠️ Initialize Knowledge Base</h3>
+                <p>Click the button below to build the AI's knowledge database</p>
+            </div>
+        """, unsafe_allow_html=True)
+        
         btn = st.button("🚀 Create Knowledgebase", key="create_kb")
-        st.markdown('</div>', unsafe_allow_html=True)
     
     if btn:
         with st.spinner("🔄 Building the knowledge base... Please wait."):
@@ -189,7 +216,7 @@ def app():
     
     # Question input section
     st.markdown("---")
-    st.markdown("### 💬 Ask Your Question")
+    st.markdown('<div class="section-title">💬 Ask Your Question</div>', unsafe_allow_html=True)
     
     question = st.text_input(
         "Type your book-related question here:",
